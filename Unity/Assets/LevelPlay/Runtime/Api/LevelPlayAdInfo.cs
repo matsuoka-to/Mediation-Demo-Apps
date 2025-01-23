@@ -69,6 +69,7 @@ namespace com.unity3d.mediation
         public readonly string AdFormat;
         public readonly string PlacementName;
         public readonly string AuctionId;
+        public readonly string CreativeId;
         public readonly string Country;
         public readonly string Ab;
         public readonly string SegmentName;
@@ -127,6 +128,11 @@ namespace com.unity3d.mediation
                 {
                     auctionId = obj.ToString();
                     AuctionId = obj.ToString();
+                }
+                
+                if (jsonDic.TryGetValue(IronSourceConstants.k_ImpressionDataKeyCreativeID, out obj) && obj != null)
+                {
+                    CreativeId = obj.ToString();
                 }
 
                 if (jsonDic.TryGetValue(CountryKey, out obj) && obj != null)
@@ -235,7 +241,7 @@ namespace com.unity3d.mediation
 
         public override string ToString()
         {
-            return $"adUnitId: {adUnitId}, adUnitName: {adUnitName}, adSize: {adSize}, adFormat: {adFormat}, placementName: {placementName}, auctionId: {auctionId}, country: {country}, ab: {ab}, segmentName: {segmentName}, adNetwork: {adNetwork}, instanceName: {instanceName}, instanceId: {instanceId}, revenue: {revenue}, precision: {precision}, encryptedCPM: {encryptedCPM}";
+            return $"adUnitId: {adUnitId}, adUnitName: {adUnitName}, adSize: {adSize}, adFormat: {adFormat}, placementName: {placementName}, auctionId: {auctionId}, creativeId: {CreativeId}, country: {country}, ab: {ab}, segmentName: {segmentName}, adNetwork: {adNetwork}, instanceName: {instanceName}, instanceId: {instanceId}, revenue: {revenue}, precision: {precision}, encryptedCPM: {encryptedCPM}";
         }
     }
 }

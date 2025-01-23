@@ -39,7 +39,11 @@ namespace com.unity3d.mediation
             {
                 try
                 {
-                    m_RewardedAdListener ??= new UnityRewardedAdListener(this);
+                    if (m_RewardedAdListener == null)
+                    {
+                        m_RewardedAdListener =
+                            new UnityRewardedAdListener(this);
+                    }
                     m_RewardedAdJavaObject =
                         new AndroidJavaObject(k_AndroidRewardedAdClass, adUnitId, m_RewardedAdListener);
                 }
@@ -110,8 +114,10 @@ namespace com.unity3d.mediation
             var isPlacementCapped = false;
             try
             {
-                using var rewardedAdJavaClass = new AndroidJavaClass(k_AndroidRewardedAdClass);
-                isPlacementCapped = rewardedAdJavaClass.CallStatic<bool>(k_IsPlacementCappedStaticFunction, placementName);
+                using (var rewardedAdJavaClass = new AndroidJavaClass(k_AndroidRewardedAdClass))
+                {
+                    isPlacementCapped = rewardedAdJavaClass.CallStatic<bool>(k_IsPlacementCappedStaticFunction, placementName);
+                }
             }
             catch (Exception e)
             {

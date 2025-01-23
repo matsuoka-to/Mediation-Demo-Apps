@@ -9,7 +9,7 @@ namespace com.unity3d.mediation
     /// </summary>
     public class LevelPlay
     {
-        static event Action<LevelPlayConfiguration> InitSuccessReceived;
+        static event Action<LevelPlayConfiguration> OnInitSuccessReceived;
         static event Action<LevelPlayInitError> OnInitFailedReceived;
 
         /// <summary>
@@ -20,17 +20,17 @@ namespace com.unity3d.mediation
         {
             add
             {
-                if (InitSuccessReceived == null || !InitSuccessReceived.GetInvocationList().Contains(value))
+                if (OnInitSuccessReceived == null || !OnInitSuccessReceived.GetInvocationList().Contains(value))
                 {
-                    InitSuccessReceived += value;
+                    OnInitSuccessReceived += value;
                 }
             }
 
             remove
             {
-                if (InitSuccessReceived != null && InitSuccessReceived.GetInvocationList().Contains(value))
+                if (OnInitSuccessReceived != null && OnInitSuccessReceived.GetInvocationList().Contains(value))
                 {
-                    InitSuccessReceived -= value;
+                    OnInitSuccessReceived -= value;
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace com.unity3d.mediation
 #if UNITY_ANDROID && !UNITY_EDITOR
             AndroidLevelPlaySdk.OnInitSuccess += (configuration) =>
             {
-                InitSuccessReceived?.Invoke(configuration);
+                OnInitSuccessReceived?.Invoke(configuration);
             };
             AndroidLevelPlaySdk.OnInitFailed += (error) =>
             {
@@ -75,7 +75,7 @@ namespace com.unity3d.mediation
 #elif UNITY_IOS && !UNITY_EDITOR
             IosLevelPlaySdk.OnInitSuccess += (configuration) =>
             {
-                InitSuccessReceived?.Invoke(configuration);
+                OnInitSuccessReceived?.Invoke(configuration);
             };
             IosLevelPlaySdk.OnInitFailed += (error) =>
             {

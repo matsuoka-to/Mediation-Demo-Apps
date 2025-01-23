@@ -52,7 +52,7 @@ namespace com.unity3d.mediation
 
         delegate void DidDisplayWithAdInfo(IntPtr bannerPtr, string adInfoJson);
 
-        delegate void DidFailToDisplayWithAdInfo(IntPtr bannerPtr, string adInfoJson, String errorPtr);
+        delegate void DidFailToDisplayWithAdInfo(IntPtr bannerPtr, string adInfoJson, string errorPtr);
 
         delegate void DidExpandAdWithAdInfo(IntPtr bannerPtr, string adInfoJson);
 
@@ -90,7 +90,7 @@ namespace com.unity3d.mediation
         }
 
         [MonoPInvokeCallback(typeof(DidFailToDisplayWithAdInfo))]
-        static void DisplayFailed(IntPtr ptr, string adInfoJson, String errorPtr)
+        static void DisplayFailed(IntPtr ptr, string adInfoJson, string errorPtr)
         {
             var bannerAd = Get<iOSBannerAd>(ptr);
             bannerAd?.InvokeFailedDisplayEvent(new LevelPlayAdInfo(adInfoJson), new LevelPlayAdError(errorPtr));

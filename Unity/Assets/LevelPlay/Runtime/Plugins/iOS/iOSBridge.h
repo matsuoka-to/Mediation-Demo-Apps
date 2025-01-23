@@ -26,6 +26,7 @@ extern "C" {
 }
 #endif
 
+
 @interface iOSBridge : NSObject<ISSegmentDelegate,
 								ISImpressionDataDelegate,
 								ISConsentViewDelegate,
