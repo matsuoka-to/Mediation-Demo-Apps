@@ -192,8 +192,13 @@ public class IronSourceDependenciesManager : EditorWindow, IObserver<bool>
     MessageDisplayComponent.ViewModel GetMessageDisplayComponentViewModel()
     {
         var installedSdkVersion = m_LevelPlayNetworkManager.InstalledSdkVersion();
+        var latestSdkVersion = m_LevelPlayNetworkManager.LatestSdkVersion();
         var message = string.Empty;
-        if (installedSdkVersion != null)
+        if (latestSdkVersion != null && installedSdkVersion != null && installedSdkVersion.Version != latestSdkVersion.Version)
+        {
+            message = m_LevelPlayNetworkManager.IronSourceSdk.UpdateMessage;
+        }
+        else if (installedSdkVersion != null)
         {
             message = installedSdkVersion.Message;
         }

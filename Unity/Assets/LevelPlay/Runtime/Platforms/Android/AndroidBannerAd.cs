@@ -97,7 +97,10 @@ namespace com.unity3d.mediation
             {
                 try
                 {
-                    _mBannerAdListener ??= new UnityBannerAdListener(this);
+                    if (_mBannerAdListener == null)
+                    {
+                        _mBannerAdListener = new UnityBannerAdListener(this);
+                    }
                     _mBannerAd = new AndroidJavaObject(k_BannerAdClassName, adUnitId,
                         adSize.Description, adSize.Width, adSize.Height, adSize.CustomWidth,
                         (int)position, placementName, displayOnLoad, respectSafeArea, _mBannerAdListener);

@@ -48,7 +48,10 @@ namespace com.unity3d.mediation
         public static void Initialize(string appKey, string userId, LevelPlayAdFormat[] adFormats)
         {
             GetBridge().Call("setPluginData", "Unity", IronSource.pluginVersion(), IronSource.unityVersion());
-            _listener ??= new UnityLevelPlayInitListener(new AndroidLevelPlaySdk());
+            if (_listener == null)
+            {
+                _listener = new UnityLevelPlayInitListener(new AndroidLevelPlaySdk());
+            }
             GetBridge().Call("initialize", appKey, userId, GetAdFormatArray(adFormats), _listener);
         }
 
